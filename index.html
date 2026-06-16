@@ -1,122 +1,48 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mensagem Especial ❤️</title>
-
-<style>
-body{
-    margin:0;
-    background:#ffb6c1;
-    overflow:hidden;
-    height:100vh;
-    font-family:Arial, sans-serif;
-}
-
-.container{
-    text-align:center;
-    margin-top:80px;
-}
-
-h1{
-    color:#8b0000;
-    font-size:3rem;
-}
-
-#resultado{
-    margin-top:30px;
-    font-size:2rem;
-    color:#8b0000;
-    font-weight:bold;
-}
-
-button{
-    border:none;
-    border-radius:12px;
-    padding:15px 30px;
-    font-size:1.2rem;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-#sim{
-    background:#ff69b4;
-    color:white;
-}
-
-#nao{
-    position:absolute;
-    background:#dc143c;
-    color:white;
-}
-
-.coracao{
-    position:absolute;
-    pointer-events:none;
-    user-select:none;
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-    <h1>Quer me dar hoje? ❤️</h1>
-
-    <button id="sim">SIM ❤️</button>
-    <button id="nao">NÃO 💔</button>
-
-    <div id="resultado"></div>
-</div>
-
-<script>
-const btnNao = document.getElementById("nao");
-const btnSim = document.getElementById("sim");
-const resultado = document.getElementById("resultado");
-
-// posição inicial do botão NÃO
-btnNao.style.left = "60%";
-btnNao.style.top = "50%";
-
-// mensagem ao clicar em SIM
-btnSim.onclick = () => {
-    resultado.innerHTML = "Pode vir aqui na minha casa vibiba! 😍❤️";
-};
-
-// botão NÃO foge
-function fugir(){
-    const x = Math.random() * (window.innerWidth - 150);
-    const y = 120 + Math.random() * (window.innerHeight - 220);
-
-    btnNao.style.left = x + "px";
-    btnNao.style.top = y + "px";
-}
-
+// Computador
 btnNao.addEventListener("mouseenter", fugir);
 
-// foge quando o mouse chega perto
-document.addEventListener("mousemove", (e)=>{
+document.addEventListener("mousemove", (e) => {
     const rect = btnNao.getBoundingClientRect();
 
-    const distanciaX = Math.abs(e.clientX - (rect.left + rect.width/2));
-    const distanciaY = Math.abs(e.clientY - (rect.top + rect.height/2));
+    const distanciaX = Math.abs(e.clientX - (rect.left + rect.width / 2));
+    const distanciaY = Math.abs(e.clientY - (rect.top + rect.height / 2));
 
-    if(distanciaX < 150 && distanciaY < 80){
+    if (distanciaX < 150 && distanciaY < 80) {
         fugir();
     }
 });
 
-// cria corações aleatórios
-for(let i=0;i<50;i++){
-    const c = document.createElement("div");
-    c.className = "coracao";
-    c.innerHTML = "❤️";
-    c.style.left = Math.random()*window.innerWidth + "px";
-    c.style.top = Math.random()*window.innerHeight + "px";
-    c.style.fontSize = (10 + Math.random()*20) + "px";
-    document.body.appendChild(c);
-}
-</script>
+// Celular - foge ao tocar
+btnNao.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    fugir();
+});
 
-</body>
-</html>
+// Celular - foge quando o dedo se aproxima
+document.addEventListener("touchstart", (e) => {
+    const rect = btnNao.getBoundingClientRect();
+
+    const toqueX = e.touches[0].clientX;
+    const toqueY = e.touches[0].clientY;
+
+    const distanciaX = Math.abs(toqueX - (rect.left + rect.width / 2));
+    const distanciaY = Math.abs(toqueY - (rect.top + rect.height / 2));
+
+    if (distanciaX < 120 && distanciaY < 120) {
+        fugir();
+    }
+});
+
+document.addEventListener("touchmove", (e) => {
+    const rect = btnNao.getBoundingClientRect();
+
+    const toqueX = e.touches[0].clientX;
+    const toqueY = e.touches[0].clientY;
+
+    const distanciaX = Math.abs(toqueX - (rect.left + rect.width / 2));
+    const distanciaY = Math.abs(toqueY - (rect.top + rect.height / 2));
+
+    if (distanciaX < 120 && distanciaY < 120) {
+        fugir();
+    }
+});
