@@ -1,32 +1,70 @@
-// Computador
+<script>
+const btnNao = document.getElementById("nao");
+const btnSim = document.getElementById("sim");
+const resultado = document.getElementById("resultado");
+
+// posição inicial
+btnNao.style.left = "60%";
+btnNao.style.top = "50%";
+
+// botão SIM
+btnSim.onclick = () => {
+    resultado.innerHTML = "Pode vir aqui na minha casa vibiba! 😍❤️";
+};
+
+// função que faz o botão fugir
+function fugir() {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = 120 + Math.random() * (window.innerHeight - 220);
+
+    btnNao.style.left = x + "px";
+    btnNao.style.top = y + "px";
+}
+
+// =====================
+// COMPUTADOR
+// =====================
+
 btnNao.addEventListener("mouseenter", fugir);
 
 document.addEventListener("mousemove", (e) => {
     const rect = btnNao.getBoundingClientRect();
 
-    const distanciaX = Math.abs(e.clientX - (rect.left + rect.width / 2));
-    const distanciaY = Math.abs(e.clientY - (rect.top + rect.height / 2));
+    const distanciaX = Math.abs(
+        e.clientX - (rect.left + rect.width / 2)
+    );
+
+    const distanciaY = Math.abs(
+        e.clientY - (rect.top + rect.height / 2)
+    );
 
     if (distanciaX < 150 && distanciaY < 80) {
         fugir();
     }
 });
 
-// Celular - foge ao tocar
+// =====================
+// CELULAR
+// =====================
+
 btnNao.addEventListener("touchstart", (e) => {
     e.preventDefault();
     fugir();
 });
 
-// Celular - foge quando o dedo se aproxima
 document.addEventListener("touchstart", (e) => {
     const rect = btnNao.getBoundingClientRect();
 
     const toqueX = e.touches[0].clientX;
     const toqueY = e.touches[0].clientY;
 
-    const distanciaX = Math.abs(toqueX - (rect.left + rect.width / 2));
-    const distanciaY = Math.abs(toqueY - (rect.top + rect.height / 2));
+    const distanciaX = Math.abs(
+        toqueX - (rect.left + rect.width / 2)
+    );
+
+    const distanciaY = Math.abs(
+        toqueY - (rect.top + rect.height / 2)
+    );
 
     if (distanciaX < 120 && distanciaY < 120) {
         fugir();
@@ -39,10 +77,38 @@ document.addEventListener("touchmove", (e) => {
     const toqueX = e.touches[0].clientX;
     const toqueY = e.touches[0].clientY;
 
-    const distanciaX = Math.abs(toqueX - (rect.left + rect.width / 2));
-    const distanciaY = Math.abs(toqueY - (rect.top + rect.height / 2));
+    const distanciaX = Math.abs(
+        toqueX - (rect.left + rect.width / 2)
+    );
+
+    const distanciaY = Math.abs(
+        toqueY - (rect.top + rect.height / 2)
+    );
 
     if (distanciaX < 120 && distanciaY < 120) {
         fugir();
     }
 });
+
+// =====================
+// CORAÇÕES
+// =====================
+
+for (let i = 0; i < 50; i++) {
+    const c = document.createElement("div");
+
+    c.className = "coracao";
+    c.innerHTML = "❤️";
+
+    c.style.left =
+        Math.random() * window.innerWidth + "px";
+
+    c.style.top =
+        Math.random() * window.innerHeight + "px";
+
+    c.style.fontSize =
+        (10 + Math.random() * 20) + "px";
+
+    document.body.appendChild(c);
+}
+</script>
